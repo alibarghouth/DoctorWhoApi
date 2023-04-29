@@ -1,3 +1,12 @@
+# Web APIs: Doctor Who
+
+## **Before you start**
+
+- Use .NET Core 3.0+ Web API template.
+- Do one task at a time. Run tests, many tests!
+- Follow GIT best practices you learned to push your code.
+- This exercise depends on [EF Core: Doctor Who](https://www.notion.so/EF-Core-Doctor-Who-c0429599c9a24d6a895824b7e9beec2f) exercise.
+
 ## Requirements
 
 1. Create a solution named `DoctorWho` with a web application project named `DoctorWho.Web`.
