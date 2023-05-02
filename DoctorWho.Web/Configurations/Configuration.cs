@@ -10,7 +10,6 @@ namespace DoctorWho.Web.Configurations
         {
             AddDatabase(services, configuration);
             AddFluentValidation(services);
-            AddMaapperConfiguration(services);
         }
         private static void AddDatabase(IServiceCollection services, ConfigurationManager configuration)
         {
@@ -20,10 +19,6 @@ namespace DoctorWho.Web.Configurations
         private static void AddFluentValidation(IServiceCollection services)
         {
             services.AddFluentValidationAutoValidation();
-            //builder.Services.AddScoped<IValidator<AddClass>, AddClassValidator>();
-        }
-        public static void AddMaapperConfiguration(IServiceCollection services)
-        {
         }
     }
 }
