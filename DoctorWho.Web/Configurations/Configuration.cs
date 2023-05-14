@@ -1,4 +1,5 @@
 ﻿using DoctorWho.Db;
+using DoctorWho.Db.Context;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,7 +14,7 @@ namespace DoctorWho.Web.Configurations
         }
         private static void AddDatabase(IServiceCollection services, ConfigurationManager configuration)
         {
-            services.AddDbContext<ApplicationDBContext>(option =>
+            services.AddDbContext<ApplicationDbContext>(option =>
                    option.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
         }
         private static void AddFluentValidation(IServiceCollection services)

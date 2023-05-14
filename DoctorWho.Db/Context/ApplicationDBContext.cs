@@ -1,11 +1,11 @@
 ﻿using DoctorWho.Db.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace DoctorWho.Db
+namespace DoctorWho.Db.Context
 {
-    public class ApplicationDBContext : DbContext
+    public class ApplicationDbContext : DbContext
     {
-        public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options) { }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
