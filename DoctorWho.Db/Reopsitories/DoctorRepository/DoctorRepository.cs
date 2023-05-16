@@ -17,4 +17,23 @@ public class DoctorRepository : IDoctorRepository
     {
         return await _dbContext.Doctors.ToListAsync();
     }
+
+    public Doctor UpdateDoctorAsync(Doctor doctor)
+    { 
+        _dbContext.Doctors.Update(doctor);
+        _dbContext.SaveChanges();
+        return doctor;
+    }
+
+    public async Task<Doctor> FindDoctorById(int doctorId)
+    {
+        return await _dbContext.Doctors.FindAsync(doctorId);
+    }
+
+    public async Task<Doctor> AddDoctorAsync(Doctor doctor)
+    {
+        await _dbContext.Doctors.AddAsync(doctor);
+        await _dbContext.SaveChangesAsync();
+        return doctor;
+    }
 }
