@@ -1,8 +1,9 @@
 ﻿using DoctorWho.Db.Model;
+using DoctorWho.Web.DTOs.DoctorsDTOs;
 
 namespace DoctorWho.Web.Services.DoctorService;
 
 public interface IDoctorService
 {
-    Task<List<Doctor>> GetAllDoctorAsync();
+    Task<List<GetDoctors>> GetAllDoctorAsync();
 }

@@ -22,7 +22,7 @@ namespace DoctorWho.Web.Controllers
         public async Task<ActionResult> GetAllDoctorAsync()
         {
             var doctors = await _doctorService.GetAllDoctorAsync();
-            return Ok(doctors);
+            return Ok(new {doctor = doctors});
         }
     }
 }

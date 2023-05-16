@@ -1,5 +1,6 @@
-﻿using DoctorWho.Db.Model;
-using DoctorWho.Db.Reopsitories.DoctorRepository;
+﻿using DoctorWho.Db.Reopsitories.DoctorRepository;
+using DoctorWho.Web.DTOs.DoctorsDTOs;
+using Mapster;
 
 namespace DoctorWho.Web.Services.DoctorService;
 
@@ -12,8 +13,9 @@ public class DoctorService : IDoctorService
         _doctorRepository = doctorRepository;
     }
 
-    public async Task<List<Doctor>> GetAllDoctorAsync()
+    public async Task<List<GetDoctors>> GetAllDoctorAsync()
     {
-        return await _doctorRepository.GetAllDoctorAsync();
+        var doctors = await _doctorRepository.GetAllDoctorAsync();
+        return  doctors.Adapt<List<GetDoctors>>();
     }
 }
