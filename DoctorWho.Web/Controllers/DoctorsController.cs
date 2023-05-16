@@ -34,5 +34,10 @@ namespace DoctorWho.Web.Controllers
         {
             return Ok(await _doctorService.AddDoctorAsync(doctorDtOs));
         }
+        [HttpPost("delete_doctor/{doctorId:int}")]
+        public async Task<IActionResult> DeleteDoctorAsync(int doctorId)
+        {
+            return Ok(await _doctorService.DeleteDoctorAsync(doctorId));
+        }
     }
 }

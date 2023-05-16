@@ -18,10 +18,10 @@ public class DoctorRepository : IDoctorRepository
         return await _dbContext.Doctors.ToListAsync();
     }
 
-    public Doctor UpdateDoctorAsync(Doctor doctor)
+    public async Task<Doctor> UpdateDoctorAsync(Doctor doctor)
     { 
         _dbContext.Doctors.Update(doctor);
-        _dbContext.SaveChanges();
+        await _dbContext.SaveChangesAsync();
         return doctor;
     }
 
@@ -35,5 +35,14 @@ public class DoctorRepository : IDoctorRepository
         await _dbContext.Doctors.AddAsync(doctor);
         await _dbContext.SaveChangesAsync();
         return doctor;
+    }
+
+    public async Task<bool> DeleteDoctorAsync(Doctor doctor)
+    {
+        
+        _dbContext.Doctors.Remove(doctor);
+        await _dbContext.SaveChangesAsync();
+
+        return true;
     }
 }

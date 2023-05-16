@@ -1,9 +1,9 @@
-﻿using System.Net;
-using DoctorWho.Db.Model;
+﻿using DoctorWho.Db.Model;
 using DoctorWho.Db.Reopsitories.DoctorRepository;
 using DoctorWho.Web.DTOs.DoctorsDTOs;
 using DoctorWho.Web.Exceptions;
 using Mapster;
+using System.Net;
 
 namespace DoctorWho.Web.Services.DoctorService;
 
@@ -42,22 +42,18 @@ public class DoctorService : IDoctorService
             };
         }
 
-        var doctor = await FindDoctorById(doctorId);
-        if (doctor is null)
+        var doctor = await _doctorRepository.FindDoctorById(doctorId) ?? throw new DoctorWhoExceptions
         {
-            throw new DoctorWhoExceptions
-            {
-                Message = "object is exists",
-                StatusCode = HttpStatusCode.BadRequest
-            };
-        }
+            Message = "object not found",
+            StatusCode = HttpStatusCode.BadRequest
+        };
 
         if (string.IsNullOrEmpty(doctorDtOs.Name))
             doctor.Name = doctorDtOs.Name;
         if (string.IsNullOrEmpty(doctorDtOs.Number))
             doctor.Number = doctorDtOs.Number;
         var doctorUpdated = _doctorRepository.UpdateDoctorAsync(doctor);
-        
+
         return doctorUpdated.Adapt<DoctorDTOs>();
     }
 
@@ -74,12 +70,27 @@ public class DoctorService : IDoctorService
 
         var doctor = doctorDtOs.Adapt<Doctor>();
         await _doctorRepository.AddDoctorAsync(doctor);
-        
+
         return doctorDtOs;
     }
-
-    private async Task<Doctor> FindDoctorById(int doctorId)
+    public async Task<bool> DeleteDoctorAsync(int doctorId)
     {
-        return await _doctorRepository.FindDoctorById(doctorId);
+        if (doctorId == 0)
+        {
+            throw new DoctorWhoExceptions
+            {
+                Message = "object is exists",
+                StatusCode = HttpStatusCode.BadRequest
+            };
+        }
+        var doctor = await _doctorRepository.FindDoctorById(doctorId) ?? throw new DoctorWhoExceptions
+        {
+            Message = "object not found",
+            StatusCode = HttpStatusCode.BadRequest
+        };
+
+        return await _doctorRepository.DeleteDoctorAsync(doctor);
     }
+
+
 }
