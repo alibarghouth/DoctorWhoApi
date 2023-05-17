@@ -3,7 +3,7 @@
     public class Episode
     {
         public int Id { get; set; }
-        public int SeriesNumber { get; set; }
+        public long SeriesNumber { get; set; }
         public int EpisodeNumber { get; set; }
         public string Episodetype { get; set; }
         public string Title { get; set; }

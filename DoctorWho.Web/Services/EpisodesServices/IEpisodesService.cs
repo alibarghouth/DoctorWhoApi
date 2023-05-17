@@ -5,5 +5,6 @@ namespace DoctorWho.Web.Services.EpisodesServices;
 public interface IEpisodesService
 {
     Task<List<GetEpisodes>> GetAllEpisodesAsync();
+    Task<CreateEpisode> AddEpisodeAsync(CreateEpisode createEpisode);
 
 }

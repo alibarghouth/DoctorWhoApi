@@ -8,6 +8,6 @@ public class GetEpisodes
     public string Title { get; set; }
     public DateTime EpsodeDate { get; set; }
     public int AuthorId { get; set; }
-    public int? DoctorId { get; set; }
+    public int DoctorId { get; set; }
     public string Notes { get; set; }
 }

@@ -17,4 +17,12 @@ public class EpisodesRepository : IEpisodesRepository
     {
         return await _context.Episodes.ToListAsync();
     }
+
+    public async Task<Episode> AddEpisodeAsync(Episode episode)
+    {
+        await _context.Episodes.AddAsync(episode);
+        await _context.SaveChangesAsync();
+
+        return episode;
+    }
 }
