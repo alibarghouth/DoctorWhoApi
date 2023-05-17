@@ -1,10 +1,12 @@
 ﻿using DoctorWho.Db.Context;
+using DoctorWho.Db.Reopsitories.AuthorRepository;
 using DoctorWho.Db.Reopsitories.CompanionRepository;
 using DoctorWho.Db.Reopsitories.DoctorRepository;
 using DoctorWho.Db.Reopsitories.EnemyRepository;
 using DoctorWho.Db.Reopsitories.EpisodeCompanionRepository;
 using DoctorWho.Db.Reopsitories.EpisodeEnemyRepository;
 using DoctorWho.Db.Reopsitories.EpisodesRepository;
+using DoctorWho.Web.Services.AuthorService;
 using DoctorWho.Web.Services.CompanionService;
 using DoctorWho.Web.Services.DoctorService;
 using DoctorWho.Web.Services.EnemyServcie;
@@ -46,6 +48,8 @@ namespace DoctorWho.Web.Configurations
             services.AddScoped<IEpisodeEnemyServcie, EpisodeEnemyServcie>();
             services.AddScoped<IEnemyRepository, EnemyRepository>();
             services.AddScoped<IEnemyServcie, EnemyServcie>();
+            services.AddScoped<IAuthorService, AuthorService>();
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
         }
 
         private static void AddFluentValidation(IServiceCollection services)
