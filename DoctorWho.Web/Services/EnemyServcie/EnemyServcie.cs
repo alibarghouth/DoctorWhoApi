@@ -1,10 +1,19 @@
-﻿namespace DoctorWho.Web.Services.EnemyServcie
+﻿using DoctorWho.Db.Reopsitories.EnemyRepository;
+
+namespace DoctorWho.Web.Services.EnemyServcie
 {
     public class EnemyServcie : IEnemyServcie
     {
-        public Task<bool> EnemyIsExists(int enemyId)
+        private readonly IEnemyRepository _enemyRepository;
+
+        public EnemyServcie(IEnemyRepository enemyRepository)
         {
-            throw new NotImplementedException();
+            _enemyRepository = enemyRepository;
+        }
+
+        public async Task<bool> EnemyIsExists(int enemyId)
+        {
+            return await _enemyRepository.EnemyIsExists(enemyId);
         }
     }
 }

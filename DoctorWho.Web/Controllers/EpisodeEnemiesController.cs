@@ -1,6 +1,5 @@
 ﻿using DoctorWho.Web.DTOs.EpisodeEnemyDTOs;
 using DoctorWho.Web.Services.EpisodeEnemyServcie;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DoctorWho.Web.Controllers
@@ -17,7 +16,7 @@ namespace DoctorWho.Web.Controllers
         }
         public async Task<IActionResult> AddEpisodeEnemyAsync(CreateEpisodeEnemy createEpisodeEnemy)
         {
-           return Ok(await _episodeEnemyServcie.AddEpisodeEnemyAsync(createEpisodeEnemy));
+            return Ok(await _episodeEnemyServcie.AddEpisodeEnemyAsync(createEpisodeEnemy));
         }
     }
 }
