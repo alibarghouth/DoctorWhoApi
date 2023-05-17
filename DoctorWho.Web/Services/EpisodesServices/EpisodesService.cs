@@ -36,4 +36,9 @@ public class EpisodesService : IEpisodesService
         var request = createEpisode.Adapt<Episode>();
         return (await _episodesRepository.AddEpisodeAsync(request)).Adapt<CreateEpisode>();
     }
+
+    public async Task<bool> EpisodeIsExists(int episodeId)
+    {
+        return await _episodesRepository.EpisodeIsExists(episodeId);
+    }
 }

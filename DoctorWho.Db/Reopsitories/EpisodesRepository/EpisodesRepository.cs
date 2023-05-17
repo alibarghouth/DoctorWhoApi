@@ -25,4 +25,9 @@ public class EpisodesRepository : IEpisodesRepository
 
         return episode;
     }
+
+    public async Task<bool> EpisodeIsExists(int episodeId)
+    {
+        return await _context.Episodes.AnyAsync(x => x.Id == episodeId);
+    }
 }
