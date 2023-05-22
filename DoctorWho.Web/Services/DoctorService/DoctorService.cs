@@ -13,9 +13,9 @@ public class DoctorService : IDoctorService
         _doctorRepository = doctorRepository;
     }
 
-    public async Task<List<GetDoctors>> GetAllDoctorAsync()
+    public async Task<List<Doctors>> GetAllDoctorAsync()
     {
         var doctors = await _doctorRepository.GetAllDoctorAsync();
-        return  doctors.Adapt<List<GetDoctors>>();
+        return  doctors.Adapt<List<Doctors>>();
     }
 }

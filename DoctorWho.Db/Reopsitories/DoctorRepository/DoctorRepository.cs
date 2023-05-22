@@ -15,6 +15,7 @@ public class DoctorRepository : IDoctorRepository
 
     public async Task<List<Doctor>> GetAllDoctorAsync()
     {
-        return await _dbContext.Doctors.ToListAsync();
+        return await _dbContext.Doctors
+            .AsNoTracking().ToListAsync();
     }
 }

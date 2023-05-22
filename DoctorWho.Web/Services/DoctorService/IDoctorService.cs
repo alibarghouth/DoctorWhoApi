@@ -5,5 +5,5 @@ namespace DoctorWho.Web.Services.DoctorService;
 
 public interface IDoctorService
 {
-    Task<List<GetDoctors>> GetAllDoctorAsync();
+    Task<List<Doctors>> GetAllDoctorAsync();
 }

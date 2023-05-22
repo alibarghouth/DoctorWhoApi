@@ -12,7 +12,7 @@ namespace DoctorWho.Web.Configurations
             ConfigurationManager configuration)
         {
             AddDatabase(services, configuration);
-            AddDependencyInjections(services);
+            AddCustomDependencies (services);
             AddFluentValidation(services);
         }
 
@@ -22,7 +22,7 @@ namespace DoctorWho.Web.Configurations
                 option.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
         }
 
-        private static void AddDependencyInjections(IServiceCollection services)
+        private static void AddCustomDependencies (IServiceCollection services)
         {
             services.AddScoped<IDoctorRepository, DoctorRepository>();
             services.AddScoped<IDoctorService, DoctorService>();
