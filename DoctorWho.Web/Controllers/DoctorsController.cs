@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DoctorWho.Web.Services.DoctorService;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DoctorWho.Web.Controllers
@@ -18,10 +13,10 @@ namespace DoctorWho.Web.Controllers
         {
             _doctorService = doctorService;
         }
-        [HttpGet("get_all_doctors")]
-        public async Task<ActionResult> GetAllDoctorAsync()
+        [HttpGet("/doctors/all")]
+        public async Task<ActionResult> GetAllDoctors()
         {
-            var doctors = await _doctorService.GetAllDoctorAsync();
+            var doctors = await _doctorService.GetAllDoctors();
             return Ok(doctors);
         }
     }

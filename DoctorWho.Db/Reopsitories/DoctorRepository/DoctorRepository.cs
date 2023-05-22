@@ -13,7 +13,7 @@ public class DoctorRepository : IDoctorRepository
         _dbContext = dbContext;
     }
 
-    public async Task<List<Doctor>> GetAllDoctorAsync()
+    public async Task<List<Doctor>> GetAllDoctors()
     {
         return await _dbContext.Doctors
             .AsNoTracking().ToListAsync();
