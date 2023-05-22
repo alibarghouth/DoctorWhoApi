@@ -15,24 +15,24 @@ namespace DoctorWho.Web.Controllers
             _doctorService = doctorService;
         }
 
-        [HttpGet("get_all_doctors")]
-        public async Task<ActionResult> GetAllDoctorAsync()
+        [HttpGet("doctors/all")]
+        public async Task<ActionResult> GetAllDoctors()
         {
-            var doctors = await _doctorService.GetAllDoctorAsync();
-            return Ok(new { doctor = doctors });
+            var doctors = await _doctorService.GetAllDoctors();
+            return Ok(doctors);
         }
 
         [HttpPut("update_doctor/{doctorId:int}")]
-        public async Task<IActionResult> UpdateDoctorAsync(DoctorDTOs doctorDtOs, int doctorId)
+        public async Task<IActionResult> UpdateDoctorAsync(DoctorRequest doctorDtOs, int doctorId)
         {
-            var doctor = await _doctorService.UpdateDoctorAsync(doctorDtOs, doctorId);
+            var doctor = await _doctorService.UpdateDoctor(doctorDtOs, doctorId);
             return Ok(doctor);
         }
 
         [HttpPost("add_doctor")]
-        public async Task<IActionResult> AddDoctorAsync(DoctorDTOs doctorDtOs)
+        public async Task<IActionResult> AddDoctorAsync(DoctorRequest doctorDtOs)
         {
-            return Ok(await _doctorService.AddDoctorAsync(doctorDtOs));
+            return Ok(await _doctorService.AddDoctor(doctorDtOs));
         }
     }
 }

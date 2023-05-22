@@ -16,13 +16,13 @@ public class DoctorService : IDoctorService
         _doctorRepository = doctorRepository;
     }
 
-    public async Task<List<GetDoctors>> GetAllDoctorAsync()
+    public async Task<List<DoctorRequest>> GetAllDoctors()
     {
-        var doctors = await _doctorRepository.GetAllDoctorAsync();
-        return doctors.Adapt<List<GetDoctors>>();
+        var doctors = await _doctorRepository.GetAllDoctors();
+        return doctors.Adapt<List<DoctorRequest>>();
     }
 
-    public async Task<DoctorDTOs> UpdateDoctorAsync(DoctorDTOs doctorDtOs, int doctorId)
+    public async Task<DoctorRequest> UpdateDoctor(DoctorRequest doctorDtOs, int doctorId)
     {
         if (doctorDtOs is null)
         {
@@ -42,26 +42,21 @@ public class DoctorService : IDoctorService
             };
         }
 
-        var doctor = await FindDoctorById(doctorId);
-        if (doctor is null)
-        {
-            throw new DoctorWhoExceptions
+        var doctor = await FindDoctorById(doctorId) ?? throw new DoctorWhoExceptions
             {
                 Message = "object is exists",
                 StatusCode = HttpStatusCode.BadRequest
             };
-        }
-
-        if (string.IsNullOrEmpty(doctorDtOs.Name))
+        if (!string.IsNullOrEmpty(doctorDtOs.Name))
             doctor.Name = doctorDtOs.Name;
-        if (string.IsNullOrEmpty(doctorDtOs.Number))
+        if (!string.IsNullOrEmpty(doctorDtOs.Number))
             doctor.Number = doctorDtOs.Number;
-        var doctorUpdated = _doctorRepository.UpdateDoctorAsync(doctor);
+        var doctorUpdated = await _doctorRepository.UpdateDoctor(doctor);
         
-        return doctorUpdated.Adapt<DoctorDTOs>();
+        return doctorUpdated.Adapt<DoctorRequest>();
     }
 
-    public async Task<DoctorDTOs> AddDoctorAsync(DoctorDTOs doctorDtOs)
+    public async Task<DoctorRequest> AddDoctor(DoctorRequest doctorDtOs)
     {
         if (doctorDtOs is null)
         {
@@ -73,9 +68,9 @@ public class DoctorService : IDoctorService
         }
 
         var doctor = doctorDtOs.Adapt<Doctor>();
-        await _doctorRepository.AddDoctorAsync(doctor);
+        ;
         
-        return doctorDtOs;
+        return (await _doctorRepository.AddDoctor(doctor)).Adapt<DoctorRequest>();
     }
 
     private async Task<Doctor> FindDoctorById(int doctorId)

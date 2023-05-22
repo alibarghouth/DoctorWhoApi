@@ -4,7 +4,7 @@ namespace DoctorWho.Web.Services.DoctorService;
 
 public interface IDoctorService
 {
-    Task<List<GetDoctors>> GetAllDoctorAsync();
-    Task<DoctorDTOs> UpdateDoctorAsync(DoctorDTOs doctorDtOs, int doctorId);
-    Task<DoctorDTOs> AddDoctorAsync(DoctorDTOs doctorDtOs);
+    Task<List<DoctorRequest>> GetAllDoctors();
+    Task<DoctorRequest> UpdateDoctor(DoctorRequest doctorDtOs, int doctorId);
+    Task<DoctorRequest> AddDoctor(DoctorRequest doctorDtOs);
 }

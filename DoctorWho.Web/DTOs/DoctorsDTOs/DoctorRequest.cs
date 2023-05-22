@@ -2,7 +2,7 @@
 
 namespace DoctorWho.Web.DTOs.DoctorsDTOs;
 
-public class DoctorDTOs
+public class DoctorRequest
 {
     private DateTime? firstEpisodeDate;
     private DateTime? lastEpisodeDate;
