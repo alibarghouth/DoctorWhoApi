@@ -1,4 +1,5 @@
 using DoctorWho.Web.DTOs.DoctorsDTOs;
+using DoctorWho.Web.Filter;
 using DoctorWho.Web.Services.DoctorService;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,6 +7,7 @@ namespace DoctorWho.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [DoctorWhoExceptionHandlerFilter]
     public class DoctorsController : ControllerBase
     {
         private readonly IDoctorService _doctorService;
@@ -18,19 +20,17 @@ namespace DoctorWho.Web.Controllers
         [HttpGet("doctors/all")]
         public async Task<ActionResult> GetAllDoctors()
         {
-            var doctors = await _doctorService.GetAllDoctors();
-            return Ok(doctors);
+            return Ok(await _doctorService.GetAllDoctors());
         }
 
-        [HttpPut("update_doctor/{doctorId:int}")]
-        public async Task<IActionResult> UpdateDoctorAsync(DoctorRequest doctorDtOs, int doctorId)
+        [HttpPut("updateDoctor/{doctorId:int}")]
+        public async Task<IActionResult> UpdateDoctorAsync(Doctor doctor, int doctorId)
         {
-            var doctor = await _doctorService.UpdateDoctor(doctorDtOs, doctorId);
-            return Ok(doctor);
+            return Ok(await _doctorService.UpdateDoctor(doctor, doctorId));
         }
 
-        [HttpPost("add_doctor")]
-        public async Task<IActionResult> AddDoctorAsync(DoctorRequest doctorDtOs)
+        [HttpPost("addDoctor")]
+        public async Task<IActionResult> AddDoctorAsync(Doctor doctorDtOs)
         {
             return Ok(await _doctorService.AddDoctor(doctorDtOs));
         }

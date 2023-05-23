@@ -1,13 +1,13 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using DoctorWho.Db.Model;
 using DoctorWho.Db.Reopsitories.DoctorRepository;
-using DoctorWho.Web.DTOs.DoctorsDTOs;
 using DoctorWho.Web.Exceptions;
 using Mapster;
 
 namespace DoctorWho.Web.Services.DoctorService;
 
-public class DoctorService : IDoctorService
+public sealed class DoctorService : IDoctorService
 {
     private readonly IDoctorRepository _doctorRepository;
 
@@ -16,65 +16,41 @@ public class DoctorService : IDoctorService
         _doctorRepository = doctorRepository;
     }
 
-    public async Task<List<DoctorRequest>> GetAllDoctors()
+    public async Task<List<DTOs.DoctorsDTOs.Doctor>> GetAllDoctors()
     {
-        var doctors = await _doctorRepository.GetAllDoctors();
-        return doctors.Adapt<List<DoctorRequest>>();
+        return (await _doctorRepository.GetAllDoctors())
+            .Adapt<List<DTOs.DoctorsDTOs.Doctor>>();
     }
 
-    public async Task<DoctorRequest> UpdateDoctor(DoctorRequest doctorDtOs, int doctorId)
+    public async Task<DTOs.DoctorsDTOs.Doctor> UpdateDoctor(
+        DTOs.DoctorsDTOs.Doctor doctor, int doctorId)
     {
-        if (doctorDtOs is null)
-        {
-            throw new DoctorWhoExceptions
-            {
-                Message = "object is null",
-                StatusCode = HttpStatusCode.BadRequest
-            };
-        }
-
         if (doctorId == 0)
         {
             throw new DoctorWhoExceptions
             {
-                Message = "object is exists",
-                StatusCode = HttpStatusCode.BadRequest
+                Message = "object is not exists",
+                StatusCode = HttpStatusCode.NotFound
             };
         }
 
-        var doctor = await FindDoctorById(doctorId) ?? throw new DoctorWhoExceptions
+        var oldDoctor = await _doctorRepository.FindDoctorById(doctorId) 
+            ?? throw new DoctorWhoExceptions
             {
-                Message = "object is exists",
-                StatusCode = HttpStatusCode.BadRequest
+                Message = "object is not exists",
+                StatusCode = HttpStatusCode.NotFound
             };
-        if (!string.IsNullOrEmpty(doctorDtOs.Name))
-            doctor.Name = doctorDtOs.Name;
-        if (!string.IsNullOrEmpty(doctorDtOs.Number))
-            doctor.Number = doctorDtOs.Number;
-        var doctorUpdated = await _doctorRepository.UpdateDoctor(doctor);
-        
-        return doctorUpdated.Adapt<DoctorRequest>();
+
+        var newDoctor = doctor.Adapt(oldDoctor);
+        var doctorUpdated = await _doctorRepository.UpdateDoctor(newDoctor);
+
+        return doctorUpdated.Adapt<DTOs.DoctorsDTOs.Doctor>();
     }
 
-    public async Task<DoctorRequest> AddDoctor(DoctorRequest doctorDtOs)
+    public async Task<DTOs.DoctorsDTOs.Doctor> AddDoctor(DTOs.DoctorsDTOs.Doctor doctorDtOs)
     {
-        if (doctorDtOs is null)
-        {
-            throw new DoctorWhoExceptions
-            {
-                Message = "object is null",
-                StatusCode = HttpStatusCode.BadRequest
-            };
-        }
-
         var doctor = doctorDtOs.Adapt<Doctor>();
-        ;
         
-        return (await _doctorRepository.AddDoctor(doctor)).Adapt<DoctorRequest>();
-    }
-
-    private async Task<Doctor> FindDoctorById(int doctorId)
-    {
-        return await _doctorRepository.FindDoctorById(doctorId);
+        return (await _doctorRepository.AddDoctor(doctor)).Adapt<DTOs.DoctorsDTOs.Doctor>();
     }
 }

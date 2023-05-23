@@ -6,6 +6,6 @@ public interface IDoctorRepository
 {
     Task<List<Doctor>> GetAllDoctors();
     Task<Doctor> UpdateDoctor(Doctor doctor);
-    Task<Doctor> FindDoctorById(int doctorId);
+    Task<Doctor?> FindDoctorById(int doctorId);
     Task<Doctor> AddDoctor(Doctor doctor);
 }

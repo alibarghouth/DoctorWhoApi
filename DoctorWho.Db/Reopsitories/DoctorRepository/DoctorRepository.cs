@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DoctorWho.Db.Reopsitories.DoctorRepository;
 
-public class DoctorRepository : IDoctorRepository
+public sealed class DoctorRepository : IDoctorRepository
 {
     private readonly ApplicationDbContext _dbContext;
 
@@ -26,7 +26,7 @@ public class DoctorRepository : IDoctorRepository
         return doctor;
     }
 
-    public async Task<Doctor> FindDoctorById(int doctorId)
+    public async Task<Doctor?> FindDoctorById(int doctorId)
     {
         return await _dbContext.Doctors.FindAsync(doctorId);
     }
