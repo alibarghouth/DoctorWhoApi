@@ -20,7 +20,7 @@ public sealed class DoctorRepository : IDoctorRepository
     }
 
     public async Task<Doctor> UpdateDoctor(Doctor doctor)
-    { 
+    {
         _dbContext.Doctors.Update(doctor);
         await _dbContext.SaveChangesAsync();
         return doctor;
@@ -36,5 +36,12 @@ public sealed class DoctorRepository : IDoctorRepository
         await _dbContext.Doctors.AddAsync(doctor);
         await _dbContext.SaveChangesAsync();
         return doctor;
+    }
+    public async Task<bool> DeleteDoctor(Doctor doctor)
+    {
+        _dbContext.Doctors.Remove(doctor);
+        await _dbContext.SaveChangesAsync();
+
+        return true;
     }
 }

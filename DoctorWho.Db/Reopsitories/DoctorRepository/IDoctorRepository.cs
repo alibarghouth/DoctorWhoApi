@@ -8,4 +8,5 @@ public interface IDoctorRepository
     Task<Doctor> UpdateDoctor(Doctor doctor);
     Task<Doctor?> FindDoctorById(int doctorId);
     Task<Doctor> AddDoctor(Doctor doctor);
+    Task<bool> DeleteDoctor(Doctor doctor);
 }

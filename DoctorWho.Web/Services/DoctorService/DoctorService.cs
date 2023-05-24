@@ -2,7 +2,6 @@
 using DoctorWho.Db.Reopsitories.DoctorRepository;
 using DoctorWho.Web.Exceptions;
 using Mapster;
-using System.Net;
 
 namespace DoctorWho.Web.Services.DoctorService;
 
@@ -25,7 +24,7 @@ public sealed class DoctorService : IDoctorService
         DTOs.DoctorsDTOs.Doctor doctor, int doctorId)
     {
         var oldDoctor = await _doctorRepository.FindDoctorById(doctorId)
-            ?? throw new DoctorNotFound("object is not exists");
+            ?? throw new DoctorNotFound("doctor not found");
 
         var newDoctor = doctor.Adapt(oldDoctor);
         var doctorUpdated = await _doctorRepository.UpdateDoctor(newDoctor);
@@ -39,4 +38,13 @@ public sealed class DoctorService : IDoctorService
 
         return (await _doctorRepository.AddDoctor(doctor)).Adapt<DTOs.DoctorsDTOs.Doctor>();
     }
+    public async Task<bool> DeleteDoctor(int doctorId)
+    {
+        var doctor = await _doctorRepository.FindDoctorById(doctorId)
+         ?? throw new DoctorNotFound("doctor not found");
+
+        return await _doctorRepository.DeleteDoctor(doctor);
+    }
+
+
 }
