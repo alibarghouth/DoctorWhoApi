@@ -29,7 +29,7 @@ namespace DoctorWho.Web.Controllers
             return Ok(await _doctorService.UpdateDoctor(doctor, doctorId));
         }
 
-        [HttpPost()]
+        [HttpPost]
         public async Task<IActionResult> AddDoctorAsync(Doctor doctorDtOs)
         {
             return Ok(await _doctorService.AddDoctor(doctorDtOs));
