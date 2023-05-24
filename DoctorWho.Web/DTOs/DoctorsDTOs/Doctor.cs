@@ -1,6 +1,4 @@
-﻿using Microsoft.Build.Framework;
-
-namespace DoctorWho.Web.DTOs.DoctorsDTOs;
+﻿namespace DoctorWho.Web.DTOs.DoctorsDTOs;
 
 public class Doctor
 {

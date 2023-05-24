@@ -37,7 +37,7 @@ public sealed class DoctorRepository : IDoctorRepository
         await _dbContext.SaveChangesAsync();
         return doctor;
     }
-    public async Task<bool> DeleteDoctorAsync(Doctor doctor)
+    public async Task<bool> DeleteDoctor(Doctor doctor)
     {
         _dbContext.Doctors.Remove(doctor);
         await _dbContext.SaveChangesAsync();

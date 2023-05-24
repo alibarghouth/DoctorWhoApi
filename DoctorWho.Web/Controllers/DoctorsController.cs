@@ -24,18 +24,18 @@ namespace DoctorWho.Web.Controllers
         }
 
         [HttpPut("{doctorId:int}")]
-        public async Task<IActionResult> UpdateDoctorAsync(Doctor doctor, int doctorId)
+        public async Task<IActionResult> UpdateDoctor(Doctor doctor, int doctorId)
         {
             return Ok(await _doctorService.UpdateDoctor(doctor, doctorId));
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddDoctorAsync(Doctor doctorDtOs)
+        public async Task<IActionResult> AddDoctor(Doctor doctorDtOs)
         {
             return Ok(await _doctorService.AddDoctor(doctorDtOs));
         }
         [HttpDelete("{doctorId:int}")]
-        public async Task<IActionResult> DeleteDoctorAsync(int doctorId)
+        public async Task<IActionResult> DeleteDoctor(int doctorId)
         {
             return Ok(await _doctorService.DeleteDoctor(doctorId));
         }
