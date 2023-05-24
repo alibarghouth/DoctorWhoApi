@@ -23,13 +23,13 @@ namespace DoctorWho.Web.Controllers
             return Ok(await _doctorService.GetAllDoctors());
         }
 
-        [HttpPut("updateDoctor/{doctorId:int}")]
+        [HttpPut("{doctorId:int}")]
         public async Task<IActionResult> UpdateDoctorAsync(Doctor doctor, int doctorId)
         {
             return Ok(await _doctorService.UpdateDoctor(doctor, doctorId));
         }
 
-        [HttpPost("addDoctor")]
+        [HttpPost()]
         public async Task<IActionResult> AddDoctorAsync(Doctor doctorDtOs)
         {
             return Ok(await _doctorService.AddDoctor(doctorDtOs));
