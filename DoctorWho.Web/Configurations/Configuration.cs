@@ -1,7 +1,9 @@
 ﻿using DoctorWho.Db.Context;
 using DoctorWho.Db.Reopsitories.DoctorRepository;
+using DoctorWho.Db.Reopsitories.EpisodesRepository;
 using DoctorWho.Web.DTOs.DoctorsDTOs;
 using DoctorWho.Web.Services.DoctorService;
+using DoctorWho.Web.Services.EpisodesServices;
 using DoctorWho.Web.Validator;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -29,6 +31,8 @@ namespace DoctorWho.Web.Configurations
         {
             services.AddScoped<IDoctorRepository, DoctorRepository>();
             services.AddScoped<IDoctorService, DoctorService>();
+            services.AddScoped<IEpisodesRepository, EpisodesRepository>();
+            services.AddScoped<IEpisodesService, EpisodesService>();
         }
 
         private static void AddFluentValidation(IServiceCollection services)

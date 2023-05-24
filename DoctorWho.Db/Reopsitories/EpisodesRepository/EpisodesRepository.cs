@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DoctorWho.Db.Reopsitories.EpisodesRepository;
 
-public class EpisodesRepository : IEpisodesRepository
+public sealed class EpisodesRepository : IEpisodesRepository
 {
     private readonly ApplicationDbContext _context;
 

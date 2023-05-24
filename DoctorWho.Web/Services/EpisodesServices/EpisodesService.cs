@@ -4,7 +4,7 @@ using Mapster;
 
 namespace DoctorWho.Web.Services.EpisodesServices;
 
-public class EpisodesService : IEpisodesService
+public sealed class EpisodesService : IEpisodesService
 {
     private readonly IEpisodesRepository _episodesRepository;
 
@@ -13,9 +13,9 @@ public class EpisodesService : IEpisodesService
         _episodesRepository = episodesRepository;
     }
 
-    public async Task<List<GetEpisodes>> GetAllEpisodesAsync()
+    public async Task<List<Episode>> GetAllEpisodesAsync()
     {
         return (await _episodesRepository.GetAllEpisodesAsync())
-            .Adapt<List<GetEpisodes>>();
+            .Adapt<List<Episode>>();
     }
 }

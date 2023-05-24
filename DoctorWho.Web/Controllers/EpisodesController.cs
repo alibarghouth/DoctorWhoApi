@@ -13,7 +13,7 @@ namespace DoctorWho.Web.Controllers
         {
             _episodesService = episodesService;
         }
-        [HttpGet("get_episodes")]
+        [HttpGet]
         public async Task<IActionResult> GetAllEpisodesAsync()
         {
             return Ok(await _episodesService.GetAllEpisodesAsync());
