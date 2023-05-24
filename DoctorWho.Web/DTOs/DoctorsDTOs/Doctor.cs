@@ -1,6 +1,8 @@
-﻿namespace DoctorWho.Web.DTOs.DoctorsDTOs;
+﻿using Microsoft.Build.Framework;
 
-public class GetDoctors
+namespace DoctorWho.Web.DTOs.DoctorsDTOs;
+
+public class Doctor
 {
     public string Name { get; set; }
     public string Number { get; set; }
