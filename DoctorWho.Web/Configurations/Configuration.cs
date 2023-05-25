@@ -1,8 +1,13 @@
 ﻿using DoctorWho.Db.Context;
+using DoctorWho.Db.Reopsitories.AuthorRepository;
 using DoctorWho.Db.Reopsitories.DoctorRepository;
 using DoctorWho.Db.Reopsitories.EpisodesRepository;
+using DoctorWho.Web.DTOs.DoctorsDTOs;
+using DoctorWho.Web.DTOs.EpisodeDTOs;
 using DoctorWho.Web.Services.DoctorService;
 using DoctorWho.Web.Services.EpisodesServices;
+using DoctorWho.Web.Validator;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +19,7 @@ namespace DoctorWho.Web.Configurations
             ConfigurationManager configuration)
         {
             AddDatabase(services, configuration);
-            AddDependencyInjections(services);
+            AddCustomDependencies(services);
             AddFluentValidation(services);
         }
 
@@ -24,17 +29,20 @@ namespace DoctorWho.Web.Configurations
                 option.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
         }
 
-        private static void AddDependencyInjections(IServiceCollection services)
+        private static void AddCustomDependencies(IServiceCollection services)
         {
             services.AddScoped<IDoctorRepository, DoctorRepository>();
             services.AddScoped<IDoctorService, DoctorService>();
-            services.AddScoped<IEpisodesService, EpisodesService>();
             services.AddScoped<IEpisodesRepository, EpisodesRepository>();
+            services.AddScoped<IEpisodesService, EpisodesService>();
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
         }
 
         private static void AddFluentValidation(IServiceCollection services)
         {
             services.AddFluentValidationAutoValidation();
+            services.AddScoped<IValidator<Doctor>, DoctorValidation>();
+            services.AddScoped<IValidator<Episode>, EpisodeValidation>();
         }
     }
 }

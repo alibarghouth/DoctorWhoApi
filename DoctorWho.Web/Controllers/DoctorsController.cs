@@ -1,4 +1,5 @@
 using DoctorWho.Web.DTOs.DoctorsDTOs;
+using DoctorWho.Web.Filter;
 using DoctorWho.Web.Services.DoctorService;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,6 +7,7 @@ namespace DoctorWho.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [DoctorWhoExceptionHandlerFilter]
     public class DoctorsController : ControllerBase
     {
         private readonly IDoctorService _doctorService;
@@ -15,29 +17,27 @@ namespace DoctorWho.Web.Controllers
             _doctorService = doctorService;
         }
 
-        [HttpGet("get_all_doctors")]
-        public async Task<ActionResult> GetAllDoctorAsync()
+        [HttpGet]
+        public async Task<ActionResult> GetAllDoctors()
         {
-            var doctors = await _doctorService.GetAllDoctorAsync();
-            return Ok(new { doctor = doctors });
+            return Ok(await _doctorService.GetAllDoctors());
         }
 
-        [HttpPut("update_doctor/{doctorId:int}")]
-        public async Task<IActionResult> UpdateDoctorAsync(DoctorDTOs doctorDtOs, int doctorId)
+        [HttpPut("{doctorId:int}")]
+        public async Task<IActionResult> UpdateDoctor(Doctor doctor, int doctorId)
         {
-            var doctor = await _doctorService.UpdateDoctorAsync(doctorDtOs, doctorId);
-            return Ok(doctor);
+            return Ok(await _doctorService.UpdateDoctor(doctor, doctorId));
         }
 
-        [HttpPost("add_doctor")]
-        public async Task<IActionResult> AddDoctorAsync(DoctorDTOs doctorDtOs)
+        [HttpPost]
+        public async Task<IActionResult> AddDoctor(Doctor doctorDtOs)
         {
-            return Ok(await _doctorService.AddDoctorAsync(doctorDtOs));
+            return Ok(await _doctorService.AddDoctor(doctorDtOs));
         }
-        [HttpPost("delete_doctor/{doctorId:int}")]
-        public async Task<IActionResult> DeleteDoctorAsync(int doctorId)
+        [HttpDelete("{doctorId:int}")]
+        public async Task<IActionResult> DeleteDoctor(int doctorId)
         {
-            return Ok(await _doctorService.DeleteDoctorAsync(doctorId));
+            return Ok(await _doctorService.DeleteDoctor(doctorId));
         }
     }
 }
