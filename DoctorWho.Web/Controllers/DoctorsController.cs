@@ -17,7 +17,7 @@ namespace DoctorWho.Web.Controllers
             _doctorService = doctorService;
         }
 
-        [HttpGet("doctors/all")]
+        [HttpGet]
         public async Task<ActionResult> GetAllDoctors()
         {
             return Ok(await _doctorService.GetAllDoctors());
