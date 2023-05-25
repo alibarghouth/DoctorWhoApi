@@ -15,6 +15,7 @@ public sealed class AuthorRepository : IAuthorRepository
     public async Task<bool> AuthorIsExists(int authorId)
     {
         return await _context.Authors
+            .AsNoTracking ()
             .AnyAsync(x => x.Id == authorId);
     }
 }

@@ -48,6 +48,7 @@ public sealed class DoctorRepository : IDoctorRepository
     public async Task<bool> DoctorIsExists(int doctorId)
     {
         return await _dbContext.Doctors
+            .AsNoTracking()
             .AnyAsync(x => x.Id == doctorId);
     }
 }
