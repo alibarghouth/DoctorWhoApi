@@ -15,6 +15,8 @@ public sealed class EpisodesRepository : IEpisodesRepository
 
     public async Task<List<Episode>> GetAllEpisodesAsync()
     {
-        return await _context.Episodes.ToListAsync();
+        return await _context.Episodes
+            .AsNoTracking()
+            .ToListAsync();
     }
 }
