@@ -44,4 +44,11 @@ public sealed class DoctorRepository : IDoctorRepository
 
         return true;
     }
+
+    public async Task<bool> DoctorIsExists(int doctorId)
+    {
+        return await _dbContext.Doctors
+            .AsNoTracking()
+            .AnyAsync(x => x.Id == doctorId);
+    }
 }

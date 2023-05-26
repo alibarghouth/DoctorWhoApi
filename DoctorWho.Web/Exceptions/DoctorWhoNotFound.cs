@@ -1,8 +1,8 @@
 ﻿namespace DoctorWho.Web.Exceptions;
 
-public class DoctorNotFound : DoctorWhoExceptions
+public class DoctorWhoNotFound : DoctorWhoExceptions
 {
-    public DoctorNotFound(string Message)
+    public DoctorWhoNotFound(string Message)
     {
         this.Message = Message;
         this.StatusCode = System.Net.HttpStatusCode.NotFound;

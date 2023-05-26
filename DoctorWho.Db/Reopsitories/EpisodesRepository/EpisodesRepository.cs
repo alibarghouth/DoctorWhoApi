@@ -13,10 +13,18 @@ public sealed class EpisodesRepository : IEpisodesRepository
         _context = context;
     }
 
-    public async Task<List<Episode>> GetAllEpisodesAsync()
+    public async Task<List<Episode>> GetAllEpisodes()
     {
         return await _context.Episodes
             .AsNoTracking()
             .ToListAsync();
+    }
+
+    public async Task<Episode> AddEpisode(Episode episode)
+    {
+        await _context.Episodes.AddAsync(episode);
+        await _context.SaveChangesAsync();
+
+        return episode;
     }
 }
