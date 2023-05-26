@@ -12,8 +12,8 @@ public sealed class EpisodeValidation : AbstractValidator<Episode>
         RuleFor(x => x.DoctorId)
             .NotEmpty().WithMessage("The Doctor is required"); ;
         RuleFor(e => e.SeriesNumber)
-            .NotEmpty().WithMessage("The SeriesNumber should be 10 characters long.")
-            .ExclusiveBetween(999999999, 9999999999);
+            .NotEmpty().WithMessage("The SeriesNumber should not be empty.")
+            .Length(10).WithMessage("The SeriesNumber should be exactly 10 characters long.");
         RuleFor(e => e.EpisodeNumber)
            .NotEmpty().WithMessage("The EpisodeNumber should be greater than 0.")
            .GreaterThan(0);
