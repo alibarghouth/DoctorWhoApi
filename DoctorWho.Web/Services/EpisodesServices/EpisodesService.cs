@@ -28,7 +28,7 @@ public sealed class EpisodesService : IEpisodesService
 
     public async Task<DTOs.EpisodeDTOs.Episode> AddEpisode(DTOs.EpisodeDTOs.Episode episode)
     {
-        if (!await _authorRepository.AuthorIsExists(episode.AuthorId))
+        if (!await _authorRepository.IsAuthorExists(episode.AuthorId))
             throw new DoctorWhoNotFound("author not found");
         if (!await _doctorRepository.IsDoctorExists(episode.DoctorId))
             throw new DoctorWhoNotFound("doctor not found");
