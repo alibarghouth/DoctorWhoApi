@@ -28,7 +28,7 @@ public sealed class EpisodesRepository : IEpisodesRepository
         return episode;
     }
 
-    public async Task<bool> EpisodeIsExists(int episodeId)
+    public async Task<bool> IsEpisodeExists(int episodeId)
     {
        return await _context.Episodes
             .AsNoTracking()

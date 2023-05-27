@@ -22,11 +22,11 @@ public sealed class EpisodeEnemyServcie : IEpisodeEnemyServcie
 
     public async Task<DTOs.EpisodeEnemyDTOs.EpisodeEnemy> AddEpisodeEnemy(DTOs.EpisodeEnemyDTOs.EpisodeEnemy episodeEnemy)
     {
-        if (!await _episodesRepository.EpisodeIsExists(episodeEnemy.EpisodeId))
+        if (!await _episodesRepository.IsEpisodeExists(episodeEnemy.EpisodeId))
         {
             throw new DoctorWhoNotFound("episode Not Found");
         }
-        if (!await _enemyRepository.EnemyIsExists(episodeEnemy.EnemyId))
+        if (!await _enemyRepository.IsEnemyExists(episodeEnemy.EnemyId))
         {
             throw new DoctorWhoNotFound("enemy Not Found");
         }

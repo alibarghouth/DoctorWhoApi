@@ -9,5 +9,5 @@ public interface IDoctorRepository
     Task<Doctor?> FindDoctorById(int doctorId);
     Task<Doctor> AddDoctor(Doctor doctor);
     Task<bool> DeleteDoctor(Doctor doctor);
-    Task<bool> DoctorIsExists(int doctorId);
+    Task<bool> IsDoctorExists(int doctorId);
 }

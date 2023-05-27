@@ -30,7 +30,7 @@ public sealed class EpisodesService : IEpisodesService
     {
         if (!await _authorRepository.AuthorIsExists(episode.AuthorId))
             throw new DoctorWhoNotFound("author not found");
-        if (!await _doctorRepository.DoctorIsExists(episode.DoctorId))
+        if (!await _doctorRepository.IsDoctorExists(episode.DoctorId))
             throw new DoctorWhoNotFound("doctor not found");
 
         var request = episode.Adapt<Episode>();
