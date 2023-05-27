@@ -1,6 +1,6 @@
 ﻿namespace DoctorWho.Web.DTOs.DoctorsDTOs;
 
-public class GetDoctors
+public class Doctor
 {
     public string Name { get; set; }
     public string Number { get; set; }

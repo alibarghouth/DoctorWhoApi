@@ -2,6 +2,6 @@
 {
     public interface ICompanionRepository
     {
-        Task<bool> CompanionIsExists(int companionId);
+        Task<bool> IsCompanionExists(int companionId);
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DoctorWho.Db.Reopsitories.EpisodesRepository;
 
-public class EpisodesRepository : IEpisodesRepository
+public sealed class EpisodesRepository : IEpisodesRepository
 {
     private readonly ApplicationDbContext _context;
 
@@ -13,12 +13,14 @@ public class EpisodesRepository : IEpisodesRepository
         _context = context;
     }
 
-    public async Task<List<Episode>> GetAllEpisodesAsync()
+    public async Task<List<Episode>> GetAllEpisodes()
     {
-        return await _context.Episodes.ToListAsync();
+        return await _context.Episodes
+            .AsNoTracking()
+            .ToListAsync();
     }
 
-    public async Task<Episode> AddEpisodeAsync(Episode episode)
+    public async Task<Episode> AddEpisode(Episode episode)
     {
         await _context.Episodes.AddAsync(episode);
         await _context.SaveChangesAsync();
@@ -26,8 +28,10 @@ public class EpisodesRepository : IEpisodesRepository
         return episode;
     }
 
-    public async Task<bool> EpisodeIsExists(int episodeId)
+    public async Task<bool> IsEpisodeExists(int episodeId)
     {
-        return await _context.Episodes.AnyAsync(x => x.Id == episodeId);
+       return await _context.Episodes
+            .AsNoTracking()
+            .AnyAsync(x =>x .Id == episodeId);  
     }
 }

@@ -15,16 +15,16 @@ namespace DoctorWho.Web.Controllers
             _episodesService = episodesService;
         }
 
-        [HttpGet("get_episodes")]
+        [HttpGet]
         public async Task<IActionResult> GetAllEpisodesAsync()
         {
-            return Ok(await _episodesService.GetAllEpisodesAsync());
+            return Ok(await _episodesService.GetAllEpisodes());
         }
 
-        [HttpPost("add_episode")]
-        public async Task<IActionResult> AddEpisodeAsync(CreateEpisode createEpisode)
+        [HttpPost]
+        public async Task<IActionResult> AddEpisode(Episode episode)
         {
-            return Ok(await _episodesService.AddEpisodeAsync(createEpisode));
+            return Ok(await _episodesService.AddEpisode(episode));
         }
     }
 }

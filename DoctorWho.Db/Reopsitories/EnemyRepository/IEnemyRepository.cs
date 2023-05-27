@@ -2,6 +2,6 @@
 {
     public interface IEnemyRepository
     {
-        Task<bool> EnemyIsExists(int enemyId);
+        Task<bool> IsEnemyExists(int enemyId);
     }
 }

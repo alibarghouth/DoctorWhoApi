@@ -1,8 +1,8 @@
 ﻿namespace DoctorWho.Web.DTOs.EpisodeDTOs;
 
-public class GetEpisodes
+public class Episode
 {
-    public int SeriesNumber { get; set; }
+    public string SeriesNumber { get; set; }
     public int EpisodeNumber { get; set; }
     public string Episodetype { get; set; }
     public string Title { get; set; }
