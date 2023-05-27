@@ -14,6 +14,7 @@ namespace DoctorWho.Web.Controllers
         {
             _episodeEnemyServcie = episodeEnemyServcie;
         }
+        [HttpPost]
         public async Task<IActionResult> AddEpisodeEnemyAsync(EpisodeEnemy createEpisodeEnemy)
         {
             return Ok(await _episodeEnemyServcie.AddEpisodeEnemy(createEpisodeEnemy));
