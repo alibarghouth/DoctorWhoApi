@@ -6,4 +6,5 @@ public interface IEpisodesRepository
 {
     Task<List<Episode>> GetAllEpisodes();
     Task<Episode> AddEpisode(Episode episode);
+    Task<bool> IsEpisodeExists(int episodeId);
 }

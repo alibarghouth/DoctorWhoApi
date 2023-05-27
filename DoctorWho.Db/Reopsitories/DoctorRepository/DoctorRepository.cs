@@ -16,7 +16,8 @@ public sealed class DoctorRepository : IDoctorRepository
     public async Task<List<Doctor>> GetAllDoctors()
     {
         return await _dbContext.Doctors
-            .AsNoTracking().ToListAsync();
+            .AsNoTracking()
+            .ToListAsync();
     }
 
     public async Task<Doctor> UpdateDoctor(Doctor doctor)
@@ -45,7 +46,7 @@ public sealed class DoctorRepository : IDoctorRepository
         return true;
     }
 
-    public async Task<bool> DoctorIsExists(int doctorId)
+    public async Task<bool> IsDoctorExists(int doctorId)
     {
         return await _dbContext.Doctors
             .AsNoTracking()
