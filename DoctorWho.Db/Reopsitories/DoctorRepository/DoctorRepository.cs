@@ -16,7 +16,8 @@ public sealed class DoctorRepository : IDoctorRepository
     public async Task<List<Doctor>> GetAllDoctors()
     {
         return await _dbContext.Doctors
-            .AsNoTracking().ToListAsync();
+            .AsNoTracking()
+            .ToListAsync();
     }
 
     public async Task<Doctor> UpdateDoctor(Doctor doctor)

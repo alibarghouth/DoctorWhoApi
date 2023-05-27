@@ -14,7 +14,9 @@ namespace DoctorWho.Db.Reopsitories.EnemyRepository
 
         public async Task<bool> EnemyIsExists(int enemyId)
         {
-            return await _context.Enemies.AnyAsync(x => x.Id == enemyId);
+            return await _context.Enemies
+                .AsNoTracking()
+                .AnyAsync(x => x.Id == enemyId);
         }
     }
 }
