@@ -12,7 +12,7 @@ public sealed class AuthorRepository : IAuthorRepository
         _context = context;
     }
 
-    public async Task<bool> AuthorIsExists(int authorId)
+    public async Task<bool> IsAuthorExists(int authorId)
     {
         return await _context.Authors
             .AsNoTracking ()

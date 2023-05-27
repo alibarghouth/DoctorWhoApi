@@ -2,5 +2,5 @@
 
 public interface IAuthorRepository
 {
-    Task<bool> AuthorIsExists(int authorId);
+    Task<bool> IsAuthorExists(int authorId);
 }
