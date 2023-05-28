@@ -14,9 +14,9 @@ namespace DoctorWho.Web.Controllers
             _authorService = authorService;
         }
         [HttpPut("{authorId:int}")]
-        public async Task<IActionResult> UpdateAuthorAsync(string authorId, int AuthorId)
+        public async Task<IActionResult> UpdateAuthor(string authorName, int authorId)
         {
-            return Ok(await _authorService.UpdateAuthor(authorId, AuthorId));
+            return Ok(await _authorService.UpdateAuthor(authorName, authorId));
         }
     }
 }

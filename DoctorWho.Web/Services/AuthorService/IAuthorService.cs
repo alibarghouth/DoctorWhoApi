@@ -1,7 +1,9 @@
-﻿namespace DoctorWho.Web.Services.AuthorService
+﻿using DoctorWho.Web.DTOs.AuthorDTOs;
+
+namespace DoctorWho.Web.Services.AuthorService
 {
     public interface IAuthorService
     {
-        Task<string> UpdateAuthor(string authorName, int authorId);
+        Task<Author> UpdateAuthor(string authorName, int authorId);
     }
 }

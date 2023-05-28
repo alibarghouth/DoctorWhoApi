@@ -1,5 +1,7 @@
 ﻿using DoctorWho.Db.Reopsitories.AuthorRepository;
+using DoctorWho.Web.DTOs.AuthorDTOs;
 using DoctorWho.Web.Exceptions;
+using Mapster;
 
 namespace DoctorWho.Web.Services.AuthorService
 {
@@ -12,7 +14,7 @@ namespace DoctorWho.Web.Services.AuthorService
             _authorRepository = authorRepository;
         }
 
-        public async Task<string> UpdateAuthor(string authorName, int authorId)
+        public async Task<Author> UpdateAuthor(string authorName, int authorId)
         {
             var author = await _authorRepository.FindAuthor(authorId)
                 ?? throw new DoctorWhoNotFound("author not found");
@@ -20,7 +22,7 @@ namespace DoctorWho.Web.Services.AuthorService
 
             await _authorRepository.UpdateAuthor(author);
 
-            return authorName;
+            return (author.Adapt<Author>());
         }
     }
 }
