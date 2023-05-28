@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DoctorWho.Db.Reopsitories.DoctorRepository;
 
-public class DoctorRepository : IDoctorRepository
+public sealed class DoctorRepository : IDoctorRepository
 {
     private readonly ApplicationDbContext _dbContext;
 
@@ -13,36 +13,43 @@ public class DoctorRepository : IDoctorRepository
         _dbContext = dbContext;
     }
 
-    public async Task<List<Doctor>> GetAllDoctorAsync()
+    public async Task<List<Doctor>> GetAllDoctors()
     {
-        return await _dbContext.Doctors.ToListAsync();
+        return await _dbContext.Doctors
+            .AsNoTracking()
+            .ToListAsync();
     }
 
-    public async Task<Doctor> UpdateDoctorAsync(Doctor doctor)
-    { 
+    public async Task<Doctor> UpdateDoctor(Doctor doctor)
+    {
         _dbContext.Doctors.Update(doctor);
         await _dbContext.SaveChangesAsync();
         return doctor;
     }
 
-    public async Task<Doctor> FindDoctorById(int doctorId)
+    public async Task<Doctor?> FindDoctorById(int doctorId)
     {
         return await _dbContext.Doctors.FindAsync(doctorId);
     }
 
-    public async Task<Doctor> AddDoctorAsync(Doctor doctor)
+    public async Task<Doctor> AddDoctor(Doctor doctor)
     {
         await _dbContext.Doctors.AddAsync(doctor);
         await _dbContext.SaveChangesAsync();
         return doctor;
     }
-
-    public async Task<bool> DeleteDoctorAsync(Doctor doctor)
+    public async Task<bool> DeleteDoctor(Doctor doctor)
     {
-        
         _dbContext.Doctors.Remove(doctor);
         await _dbContext.SaveChangesAsync();
 
         return true;
+    }
+
+    public async Task<bool> IsDoctorExists(int doctorId)
+    {
+        return await _dbContext.Doctors
+            .AsNoTracking()
+            .AnyAsync(x => x.Id == doctorId);
     }
 }

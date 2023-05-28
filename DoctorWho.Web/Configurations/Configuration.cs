@@ -6,13 +6,14 @@ using DoctorWho.Db.Reopsitories.EnemyRepository;
 using DoctorWho.Db.Reopsitories.EpisodeCompanionRepository;
 using DoctorWho.Db.Reopsitories.EpisodeEnemyRepository;
 using DoctorWho.Db.Reopsitories.EpisodesRepository;
+using DoctorWho.Web.DTOs.DoctorsDTOs;
+using DoctorWho.Web.DTOs.EpisodeDTOs;
 using DoctorWho.Web.Services.AuthorService;
-using DoctorWho.Web.Services.CompanionService;
 using DoctorWho.Web.Services.DoctorService;
-using DoctorWho.Web.Services.EnemyServcie;
-using DoctorWho.Web.Services.EpisodeCompanionService;
 using DoctorWho.Web.Services.EpisodeEnemyServcie;
 using DoctorWho.Web.Services.EpisodesServices;
+using DoctorWho.Web.Validator;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,7 +25,7 @@ namespace DoctorWho.Web.Configurations
             ConfigurationManager configuration)
         {
             AddDatabase(services, configuration);
-            AddDependencyInjections(services);
+            AddCustomDependencies(services);
             AddFluentValidation(services);
         }
 
@@ -34,27 +35,27 @@ namespace DoctorWho.Web.Configurations
                 option.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
         }
 
-        private static void AddDependencyInjections(IServiceCollection services)
+        private static void AddCustomDependencies(IServiceCollection services)
         {
             services.AddScoped<IDoctorRepository, DoctorRepository>();
             services.AddScoped<IDoctorService, DoctorService>();
-            services.AddScoped<IEpisodesService, EpisodesService>();
             services.AddScoped<IEpisodesRepository, EpisodesRepository>();
-            services.AddScoped<ICompanionRepository, CompanionRepository>();
-            services.AddScoped<ICompanionService, CompanionService>();
-            services.AddScoped<IEpisodeCompanionRepository, EpisodeCompanionRepository>();
-            services.AddScoped<IEpisodeCompanionService, EpisodeCompanionService>();
+            services.AddScoped<IEpisodesService, EpisodesService>();
             services.AddScoped<IEpisodeEnemyRepository, EpisodeEnemyRepository>();
             services.AddScoped<IEpisodeEnemyServcie, EpisodeEnemyServcie>();
             services.AddScoped<IEnemyRepository, EnemyRepository>();
-            services.AddScoped<IEnemyServcie, EnemyServcie>();
             services.AddScoped<IAuthorService, AuthorService>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
+            services.AddScoped<ICompanionRepository, CompanionRepository>();
+            services.AddScoped<IEpisodeCompanionRepository, EpisodeCompanionRepository>();
+            services.AddScoped<IEpisodeCompanionRepository, EpisodeCompanionRepository>();
         }
 
         private static void AddFluentValidation(IServiceCollection services)
         {
             services.AddFluentValidationAutoValidation();
+            services.AddScoped<IValidator<Doctor>, DoctorValidation>();
+            services.AddScoped<IValidator<Episode>, EpisodeValidation>();
         }
     }
 }

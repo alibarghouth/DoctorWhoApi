@@ -14,9 +14,10 @@ namespace DoctorWho.Web.Controllers
         {
             _episodeEnemyServcie = episodeEnemyServcie;
         }
-        public async Task<IActionResult> AddEpisodeEnemyAsync(CreateEpisodeEnemy createEpisodeEnemy)
+        [HttpPost]
+        public async Task<IActionResult> AddEpisodeEnemyAsync(EpisodeEnemy createEpisodeEnemy)
         {
-            return Ok(await _episodeEnemyServcie.AddEpisodeEnemyAsync(createEpisodeEnemy));
+            return Ok(await _episodeEnemyServcie.AddEpisodeEnemy(createEpisodeEnemy));
         }
     }
 }

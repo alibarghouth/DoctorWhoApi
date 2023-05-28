@@ -1,9 +1,7 @@
-﻿using DoctorWho.Db.Model;
-
-namespace DoctorWho.Web.Services.AuthorService
+﻿namespace DoctorWho.Web.Services.AuthorService
 {
     public interface IAuthorService
     {
-        Task<string> UpdateAuthorAsync(string authorName, int authorId);
+        Task<string> UpdateAuthor(string authorName, int authorId);
     }
 }

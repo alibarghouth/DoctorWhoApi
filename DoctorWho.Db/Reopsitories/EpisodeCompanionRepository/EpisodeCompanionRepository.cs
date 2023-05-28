@@ -12,7 +12,7 @@ namespace DoctorWho.Db.Reopsitories.EpisodeCompanionRepository
             _dbContext = dbContext;
         }
 
-        public async Task<EpisodeCompanion> AddEpisodeCompanionAsync(EpisodeCompanion episodeCompanion)
+        public async Task<EpisodeCompanion> AddEpisodeCompanion(EpisodeCompanion episodeCompanion)
         {
             await _dbContext.EpisodeCompanions.AddAsync(episodeCompanion);
             await _dbContext.SaveChangesAsync();    

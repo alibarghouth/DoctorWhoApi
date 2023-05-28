@@ -4,7 +4,6 @@ namespace DoctorWho.Web.Services.EpisodeEnemyServcie
 {
     public interface IEpisodeEnemyServcie
     {
-        Task<CreateEpisodeEnemy> AddEpisodeEnemyAsync(CreateEpisodeEnemy episodeEnemy);
-
+        Task<EpisodeEnemy> AddEpisodeEnemy(EpisodeEnemy episodeEnemy);
     }
 }

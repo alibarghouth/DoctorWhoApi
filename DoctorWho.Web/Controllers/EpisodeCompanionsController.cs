@@ -1,6 +1,5 @@
 ﻿using DoctorWho.Web.DTOs.EpisodeCompanionDTOs;
 using DoctorWho.Web.Services.EpisodeCompanionService;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DoctorWho.Web.Controllers
@@ -16,8 +15,8 @@ namespace DoctorWho.Web.Controllers
             _episodeCompanionService = episodeCompanionService;
         }
 
-        [HttpPost("add_episodeCopanion")]
-        public async Task<IActionResult> AddEpisodeCompanionAsync(CreateEpisodeCompanion episodeCompanion)
+        [HttpPost]
+        public async Task<IActionResult> AddEpisodeCompanionAsync(EpisodeCompanion episodeCompanion)
         {
             return Ok(await _episodeCompanionService.AddEpisodeCompanionAsync(episodeCompanion));
         }

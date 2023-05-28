@@ -1,10 +1,11 @@
-﻿using DoctorWho.Db.Model;
+using DoctorWho.Db.Model;
 
 namespace DoctorWho.Db.Reopsitories.AuthorRepository
 {
     public interface IAuthorRepository
     {
-        Task<Author> UpdateAuthorAsync(Author author);
-        Task<Author> FindAuthorAsync(int id);
+        Task<Author> UpdateAuthor(Author author);
+        Task<Author?> FindAuthor(int authorId);
+        Task<bool> IsAuthorExists(int authorId);
     }
 }

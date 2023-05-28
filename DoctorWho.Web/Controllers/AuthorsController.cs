@@ -13,10 +13,10 @@ namespace DoctorWho.Web.Controllers
         {
             _authorService = authorService;
         }
-        [HttpPut("update_author/{authorId:int}")]
+        [HttpPut("{authorId:int}")]
         public async Task<IActionResult> UpdateAuthorAsync(string authorId, int AuthorId)
         {
-            return Ok(await _authorService.UpdateAuthorAsync(authorId, AuthorId));
+            return Ok(await _authorService.UpdateAuthor(authorId, AuthorId));
         }
     }
 }

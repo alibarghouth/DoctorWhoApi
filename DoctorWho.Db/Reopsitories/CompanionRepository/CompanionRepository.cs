@@ -12,7 +12,7 @@ namespace DoctorWho.Db.Reopsitories.CompanionRepository
             _dbContext = dbContext;
         }
 
-        public async Task<bool> CompanionIsExists(int companionId)
+        public async Task<bool> IsCompanionExists(int companionId)
         {
             return await _dbContext.Companions.AnyAsync(x => x.Id == companionId);
         }

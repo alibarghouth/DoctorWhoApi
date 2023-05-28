@@ -1,44 +1,38 @@
 ﻿using DoctorWho.Db.Model;
+using DoctorWho.Db.Reopsitories.EnemyRepository;
 using DoctorWho.Db.Reopsitories.EpisodeEnemyRepository;
-using DoctorWho.Web.DTOs.EpisodeEnemyDTOs;
+using DoctorWho.Db.Reopsitories.EpisodesRepository;
 using DoctorWho.Web.Exceptions;
-using DoctorWho.Web.Services.EnemyServcie;
-using DoctorWho.Web.Services.EpisodesServices;
 using Mapster;
-using System.Net;
 
-namespace DoctorWho.Web.Services.EpisodeEnemyServcie
+namespace DoctorWho.Web.Services.EpisodeEnemyServcie;
+
+public sealed class EpisodeEnemyServcie : IEpisodeEnemyServcie
 {
-    public class EpisodeEnemyServcie : IEpisodeEnemyServcie
+    private readonly IEpisodeEnemyRepository _episodeEnemyRepository;
+    private readonly IEpisodesRepository _episodesRepository;
+    private readonly IEnemyRepository _enemyRepository;
+    public EpisodeEnemyServcie(IEpisodeEnemyRepository episodeEnemyRepository
+        , IEpisodesRepository episodesRepository, IEnemyRepository enemyRepository)
     {
-        private readonly IEpisodeEnemyRepository _episodeEnemyRepository;
-        private readonly IEpisodesService _episodesService;
-        private readonly IEnemyServcie _enemyServcie;
+        _episodeEnemyRepository = episodeEnemyRepository;
+        _episodesRepository = episodesRepository;
+        _enemyRepository = enemyRepository;
+    }
 
-        public EpisodeEnemyServcie(IEpisodeEnemyRepository episodeEnemyRepository, IEpisodesService episodesService, IEnemyServcie enemyServcie)
+    public async Task<DTOs.EpisodeEnemyDTOs.EpisodeEnemy> AddEpisodeEnemy(DTOs.EpisodeEnemyDTOs.EpisodeEnemy episodeEnemy)
+    {
+        if (!await _episodesRepository.IsEpisodeExists(episodeEnemy.EpisodeId))
         {
-            _episodeEnemyRepository = episodeEnemyRepository;
-            _episodesService = episodesService;
-            _enemyServcie = enemyServcie;
+            throw new DoctorWhoNotFound("episode Not Found");
         }
+        if (!await _enemyRepository.IsEnemyExists(episodeEnemy.EnemyId))
+        {
+            throw new DoctorWhoNotFound("enemy Not Found");
+        }
+        var request = episodeEnemy.Adapt<EpisodeEnemy>();
+        var episodeEnemies = (await _episodeEnemyRepository.AddEpisodeEnemy(request)).Adapt<DTOs.EpisodeEnemyDTOs.EpisodeEnemy>();
 
-        public async Task<CreateEpisodeEnemy> AddEpisodeEnemyAsync(CreateEpisodeEnemy episodeEnemy)
-        {
-            if(episodeEnemy is null 
-                || !await _episodesService.EpisodeIsExists(episodeEnemy.EpisodeId) 
-                || !await _enemyServcie.EnemyIsExists(episodeEnemy.EnemyId))
-            {
-                throw new DoctorWhoExceptions
-                {
-                    Message = "the object is not valid",
-                    StatusCode = HttpStatusCode.BadRequest,
-                };
-            }
-            
-            var request = episodeEnemy.Adapt<EpisodeEnemy>();
-            var episodeEnemies =  (await _episodeEnemyRepository.AddEpisodeEnemyAsync(request)).Adapt<CreateEpisodeEnemy>();
-            
-            return episodeEnemies;
-        }
+        return episodeEnemies;
     }
 }

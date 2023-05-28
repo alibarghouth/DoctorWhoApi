@@ -12,7 +12,7 @@ namespace DoctorWho.Db.Reopsitories.EpisodeEnemyRepository
             _dbContext = dbContext;
         }
 
-        public async Task<EpisodeEnemy> AddEpisodeEnemyAsync(EpisodeEnemy episodeEnemy)
+        public async Task<EpisodeEnemy> AddEpisodeEnemy(EpisodeEnemy episodeEnemy)
         {
             await _dbContext.EpisodeEnemies.AddAsync(episodeEnemy);
             await _dbContext.SaveChangesAsync();

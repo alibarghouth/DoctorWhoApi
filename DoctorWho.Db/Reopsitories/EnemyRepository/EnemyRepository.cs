@@ -12,9 +12,11 @@ namespace DoctorWho.Db.Reopsitories.EnemyRepository
             _context = context;
         }
 
-        public async Task<bool> EnemyIsExists(int enemyId)
+        public async Task<bool> IsEnemyExists(int enemyId)
         {
-            return await _context.Enemies.AnyAsync(x => x.Id == enemyId);
+            return await _context.Enemies
+                .AsNoTracking()
+                .AnyAsync(x => x.Id == enemyId);
         }
     }
 }
