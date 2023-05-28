@@ -1,21 +1,35 @@
 ﻿using DoctorWho.Db.Context;
+using DoctorWho.Db.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace DoctorWho.Db.Reopsitories.AuthorRepository;
-
-public sealed class AuthorRepository : IAuthorRepository
+namespace DoctorWho.Db.Reopsitories.AuthorRepository
 {
-    private readonly ApplicationDbContext _context;
-
-    public AuthorRepository(ApplicationDbContext context)
+    public class AuthorRepository : IAuthorRepository
     {
-        _context = context;
-    }
+        private readonly ApplicationDbContext _dbContext;
 
-    public async Task<bool> IsAuthorExists(int authorId)
-    {
-        return await _context.Authors
-            .AsNoTracking ()
-            .AnyAsync(x => x.Id == authorId);
+        public AuthorRepository(ApplicationDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
+        public async Task<Author> UpdateAuthor(Author author)
+        {
+            _dbContext.Authors.Update(author);
+            await _dbContext.SaveChangesAsync();
+            return author;
+        }
+
+        public async Task<Author?> FindAuthor(int authorId)
+        {
+            return await _dbContext.Authors.FindAsync(authorId);
+        }
+
+        public async Task<bool> IsAuthorExists(int authorId)
+        {
+           return await _dbContext.Authors
+                .AsNoTracking()
+                .AnyAsync(x => x.Id == authorId);
+        }
     }
 }
